@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <style>
-        /* サロンカラーの鮮やかなブルー（#0ea5e9 / Tailwindのsky-500系）を基調としたデザイン */
+        /* サロンカラーの鮮やかなブルー（sky-500系）を基調としたデザイン */
         body {
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
             background-color: #f0f9ff;
@@ -61,20 +61,23 @@
             font-size: 0.75rem;
             margin-left: 0.25rem;
         }
+        /* 入力項目のスタイル：下の余白を確保 */
         input[type="text"], input[type="tel"], input[type="date"], input[type="time"], select, textarea {
             width: 100%;
             padding: 0.8rem;
             border: 1px solid #cbd5e1;
             border-radius: 0.5rem;
-            margin-bottom: 1.25rem;
+            margin-bottom: 0.75rem; 
             font-size: 1rem;
             background-color: #fff;
+            display: block;
         }
         input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: #0ea5e9;
             box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
         }
+        /* ラジオボタンのスタイル */
         .radio-label {
             display: flex;
             align-items: center;
@@ -91,6 +94,7 @@
             height: 1.1rem;
             accent-color: #0ea5e9;
         }
+        /* 送信ボタン */
         .submit-btn {
             background-color: #0ea5e9;
             color: white;
@@ -102,6 +106,7 @@
             box-shadow: 0 10px 15px -3px rgba(14, 165, 233, 0.3);
             transition: all 0.2s;
         }
+        /* キャンセルポリシー */
         .policy-box {
             background-color: #f8fafc;
             border: 1px solid #e2e8f0;
@@ -112,11 +117,25 @@
             line-height: 1.6;
             color: #64748b;
         }
+        /* 注釈テキスト：重なり防止のためマージンを正の値に変更 */
         .hint-text {
+            display: block;
             font-size: 0.75rem;
             color: #64748b;
-            margin-top: -1rem;
-            margin-bottom: 1rem;
+            margin-top: 0.25rem; 
+            margin-bottom: 1.25rem;
+            line-height: 1.6;
+            clear: both;
+        }
+        /* 受付時間案内 */
+        .time-info-box {
+            background-color: #f0f9ff;
+            border-left: 4px solid #0ea5e9;
+            padding: 0.75rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.85rem;
+            color: #0369a1;
+            line-height: 1.5;
         }
         #success-message {
             display: none;
@@ -159,11 +178,20 @@
                     <option value="Purify 50min">Purify 50min</option>
                 </optgroup>
             </select>
+            <p class="hint-text">
+                ※ 具体的なコースが決まっておらず、ご希望のコース時間（80分や120分など）のみお決まりの場合は、メッセージ欄にその旨ご記入をお願いいたします。
+            </p>
         </div>
 
         <!-- 2. 日時 -->
         <div class="form-section">
             <h2 class="section-title"><span class="section-number">2</span>ご希望日時</h2>
+            
+            <div class="time-info-box">
+                <strong>受付時間 13:00〜19:00 (最終スタート20:00)</strong><br>
+                <span class="text-xs">※ 午前中の予約をご希望の場合は、前日19:00までにお問合せください。</span>
+            </div>
+
             <label>第一希望日 <span class="required-mark">*</span></label>
             <div class="flex gap-2 mb-2">
                 <input type="date" id="date1" required style="flex: 1.5;">
@@ -195,6 +223,7 @@
             <div id="rep-area" style="display:none;">
                 <label>宿泊予約代表者様名</label>
                 <input type="text" id="rep_name" placeholder="代表者様のお名前をご記入ください">
+                <p class="hint-text">※宿泊のお客様は、予約代表者様名をお知らせください。</p>
             </div>
 
             <label>お名前 (フルネーム) <span class="required-mark">*</span></label>
@@ -276,12 +305,10 @@
 
         try {
             await liff.init({ liffId: MY_LIFF_ID });
-            if (!liff.isLoggedIn()) {
-                if (liff.isInClient() || window.location.hostname.includes('github.io')) {
-                    liff.login();
-                }
+            if (liff.isInClient() && !liff.isLoggedIn()) {
+                liff.login();
             }
-        } catch (err) { console.warn("Preview mode"); }
+        } catch (err) { console.warn("Preview mode: liff initialization"); }
     };
 
     async function submitForm() {
@@ -292,7 +319,11 @@
         btn.disabled = true;
         btn.innerText = "送信中...";
 
-        // データの組み立て
+        if (!liff.isLoggedIn() && liff.isInClient()) {
+            liff.login();
+            return;
+        }
+
         const course = document.getElementById('course').value;
         const d1 = `${document.getElementById('date1').value} ${document.getElementById('time1').value}`;
         const d2 = document.getElementById('date2').value ? `${document.getElementById('date2').value} ${document.getElementById('time2').value}` : "なし";
@@ -338,12 +369,15 @@ ${notes}
                 document.getElementById('form-container').style.display = 'none';
                 document.getElementById('success-message').style.display = 'block';
             } else {
-                alert("LINEアプリ内で送信してください。");
+                console.log("送信内容:\n", messageText);
+                alert("送信シミュレーション完了");
                 btn.disabled = false;
+                btn.innerText = "予約内容を送信する";
             }
         } catch (e) {
             alert("送信に失敗しました。");
             btn.disabled = false;
+            btn.innerText = "予約内容を送信する";
         }
     }
 
