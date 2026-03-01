@@ -7,11 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <style>
-        /* サロンカラーの鮮やかなブルー（sky-500系）を基調としたデザイン */
+        /* ロゴの鮮やかなスカイブルーをベースに採用 */
         body {
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            background-color: #f0f9ff;
-            color: #334155;
+            background-color: #e0f2fe;
+            color: #0f172a;
             padding-bottom: 60px;
         }
         .container {
@@ -22,131 +22,165 @@
         .form-section {
             background: white;
             padding: 1.5rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             margin-bottom: 1.5rem;
-            border-top: 5px solid #0ea5e9;
+            border-top: 6px solid #38bdf8;
         }
         .section-title {
             padding-bottom: 0.75rem;
             margin-bottom: 1.25rem;
-            color: #0284c7;
-            font-size: 1.1rem;
-            font-weight: bold;
+            color: #0369a1;
+            font-size: 1.15rem;
+            font-weight: 800;
             display: flex;
             align-items: center;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 2px solid #f1f5f9;
         }
         .section-number {
-            background-color: #0ea5e9;
+            background-color: #38bdf8;
             color: white;
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            font-size: 0.8rem;
-            margin-right: 0.6rem;
+            font-size: 0.9rem;
+            margin-right: 0.7rem;
+            font-weight: bold;
         }
         label {
             display: block;
             margin-bottom: 0.5rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: #475569;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #334155;
         }
         .required-mark {
             color: #ef4444;
             font-size: 0.75rem;
             margin-left: 0.25rem;
         }
-        input[type="text"], input[type="tel"], input[type="date"], input[type="time"], select, textarea {
+        input, select, textarea {
             width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 0.5rem;
+            padding: 0.85rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.6rem;
             margin-bottom: 0.5rem; 
             font-size: 1rem;
             background-color: #fff;
             display: block;
+            transition: border-color 0.2s;
         }
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #0ea5e9;
-            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+            border-color: #38bdf8;
         }
         .radio-label {
             display: flex;
             align-items: center;
-            padding: 0.8rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 0.5rem;
-            margin-bottom: 0.5rem;
+            padding: 0.9rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.6rem;
+            margin-bottom: 0.6rem;
             background-color: white;
             cursor: pointer;
+            font-weight: 600;
         }
         input[type="radio"] {
-            margin-right: 0.75rem;
-            width: 1.1rem;
-            height: 1.1rem;
-            accent-color: #0ea5e9;
+            margin-right: 0.8rem;
+            width: 1.2rem;
+            height: 1.2rem;
+            accent-color: #38bdf8;
         }
         .submit-btn {
-            background-color: #0ea5e9;
+            background-color: #0284c7;
             color: white;
-            padding: 1.1rem;
+            padding: 1.2rem;
             width: 100%;
-            border-radius: 0.75rem;
-            font-size: 1.1rem;
-            font-weight: bold;
-            box-shadow: 0 10px 15px -3px rgba(14, 165, 233, 0.3);
+            border-radius: 1rem;
+            font-size: 1.2rem;
+            font-weight: 800;
+            box-shadow: 0 10px 15px -3px rgba(2, 132, 199, 0.4);
             transition: all 0.2s;
+            margin-top: 1rem;
+        }
+        .submit-btn:active {
+            transform: scale(0.97);
+            box-shadow: none;
         }
         .policy-box {
             background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
-            padding: 1rem;
-            border-radius: 0.5rem;
+            border: 2px solid #e2e8f0;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
             margin-bottom: 1.5rem;
-            font-size: 0.8rem;
-            line-height: 1.6;
-            color: #64748b;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            color: #475569;
         }
-        /* 重なり防止：注釈テキスト（hint-text）の余白を十分に確保 */
         .hint-text {
             display: block;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: #64748b;
-            margin-top: 0.25rem; 
+            margin-top: 0.5rem; 
             margin-bottom: 1.5rem;
             line-height: 1.6;
             clear: both;
         }
         .time-info-box {
             background-color: #f0f9ff;
-            border-left: 4px solid #0ea5e9;
-            padding: 0.75rem;
-            margin-bottom: 1.25rem;
-            font-size: 0.85rem;
+            border-left: 5px solid #38bdf8;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
             color: #0369a1;
-            line-height: 1.5;
+            line-height: 1.6;
         }
         #success-message {
             display: none;
             text-align: center;
-            padding: 4rem 1.5rem;
+            padding: 5rem 1.5rem;
             background: white;
             border-radius: 1.5rem;
+        }
+        #custom-alert {
+            display: none;
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9998;
         }
     </style>
 </head>
 <body>
 
+<div id="overlay"></div>
+<div id="custom-alert">
+    <h3 class="font-bold text-lg mb-4">LINEから開いてください</h3>
+    <p class="text-sm text-gray-600 mb-6">予約を完了するには、LINEアプリ内のメニューから開き直してください。</p>
+    <button onclick="hideAlert()" class="bg-sky-500 text-white px-6 py-2 rounded-full font-bold">閉じる</button>
+</div>
+
 <div class="container" id="form-container">
-    <div class="text-center mb-8 mt-4">
-        <h1 class="text-2xl font-bold text-slate-800 tracking-tight">ご予約リクエスト</h1>
-        <p class="text-sm text-sky-600 font-semibold mt-2">Respiración / AMANE RESORT SPA</p>
+    <div class="text-center mb-8 mt-6">
+        <h1 class="text-3xl font-black text-slate-800 tracking-tighter">ご予約リクエスト</h1>
+        <p class="text-md text-sky-500 font-bold mt-2">Respiración / AMANE RESORT SPA</p>
     </div>
 
     <form id="reservation-form">
@@ -183,24 +217,31 @@
             <h2 class="section-title"><span class="section-number">2</span>ご希望日時</h2>
             
             <div class="time-info-box">
+                <!-- 案内テキストはご要望通り 13:00~ に戻しています -->
                 <strong>受付時間 13:00〜19:00 (最終スタート20:00)</strong><br>
-                <span class="text-xs">※ 午前中の予約をご希望の場合は、前日19:00までにお問合せください。</span>
+                <span class="text-sm font-medium">※ 午前中の予約をご希望の場合は、前日19:00までにお問合せください。</span>
             </div>
 
             <label>第一希望日 <span class="required-mark">*</span></label>
-            <div class="flex gap-2 mb-2">
+            <div class="flex gap-2 mb-4">
                 <input type="date" id="date1" required style="flex: 1.5;">
-                <input type="time" id="time1" required style="flex: 1;">
+                <select id="time1" required style="flex: 1;">
+                    <option value="" disabled selected>時間</option>
+                </select>
             </div>
             <label>第二希望日</label>
-            <div class="flex gap-2 mb-2">
+            <div class="flex gap-2 mb-4">
                 <input type="date" id="date2" style="flex: 1.5;">
-                <input type="time" id="time2" style="flex: 1;">
+                <select id="time2" style="flex: 1;">
+                    <option value="" disabled selected>時間</option>
+                </select>
             </div>
             <label>第三希望日</label>
             <div class="flex gap-2">
                 <input type="date" id="date3" style="flex: 1.5;">
-                <input type="time" id="time3" style="flex: 1;">
+                <select id="time3" style="flex: 1;">
+                    <option value="" disabled selected>時間</option>
+                </select>
             </div>
         </div>
 
@@ -267,7 +308,7 @@
 
         <!-- キャンセルポリシー -->
         <div class="policy-box">
-            <p class="font-bold mb-2 text-slate-700">【キャンセルポリシー】</p>
+            <p class="font-bold mb-2 text-slate-800">【キャンセルポリシー】</p>
             <p>◆当日のキャンセルにつきましては、施術料金の100%をご請求させて頂きます。変更等は、お早めにご連絡をお願いいたします。</p>
             <p class="mt-2">◆ご連絡なく15分過ぎてのご来店は、施術時間の短縮、またはお断りをさせて頂く場合がございます。その場合もコース料金の満額をご請求させて頂きます。</p>
         </div>
@@ -278,33 +319,63 @@
 
 <div class="container" id="success-message">
     <div class="text-sky-500 mb-6">
-        <svg class="w-20 h-20 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <svg class="w-24 h-24 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
     </div>
-    <h2 class="text-2xl font-bold text-slate-800 mb-4">送信が完了しました</h2>
-    <p class="text-slate-600 text-base leading-relaxed mb-8">
-        LINEのトーク画面に内容が送信されました。<br>この画面を閉じて、サロンからの確定連絡をお待ちください。
+    <h2 class="text-3xl font-black text-slate-800 mb-4">送信完了</h2>
+    <p class="text-slate-600 text-lg leading-relaxed mb-8">
+        LINEのトーク画面に内容が送信されました。<br>この画面を閉じて、サロンからの確定連絡をお待ちくださいませ。
     </p>
-    <button onclick="closeLiff()" class="bg-slate-800 text-white px-10 py-3 rounded-full font-bold">画面を閉じる</button>
+    <button onclick="closeLiff()" class="bg-slate-800 text-white px-12 py-4 rounded-full font-black text-lg shadow-xl">画面を閉じる</button>
 </div>
 
 <script>
     const MY_LIFF_ID = "2009275620-ZCOPfwpn";
 
+    // 15分刻みの時間選択肢を生成する関数（10:00から開始）
+    function generateTimeOptions() {
+        const selects = ['time1', 'time2', 'time3'];
+        const startHour = 10; // 選択肢は10:00から開始
+        const endHour = 20;
+
+        selects.forEach(id => {
+            const selectEl = document.getElementById(id);
+            for (let h = startHour; h <= endHour; h++) {
+                for (let m = 0; m < 60; m += 15) {
+                    if (h === endHour && m > 0) break;
+                    const timeStr = `${h}:${m.toString().padStart(2, '0')}`;
+                    const option = document.createElement('option');
+                    option.value = timeStr;
+                    option.textContent = timeStr;
+                    selectEl.appendChild(option);
+                }
+            }
+        });
+    }
+
     function toggleRep(show) {
         document.getElementById('rep-area').style.display = show ? 'block' : 'none';
     }
 
+    function showAlert() {
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('custom-alert').style.display = 'block';
+    }
+    function hideAlert() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('custom-alert').style.display = 'none';
+    }
+
     window.onload = async function() {
+        generateTimeOptions();
         const savedName = localStorage.getItem('salon_user_name');
         if (savedName) document.getElementById('name').value = savedName;
 
         try {
             await liff.init({ liffId: MY_LIFF_ID });
-            // LINEアプリ内でのみ自動ログインを作動
             if (liff.isInClient() && !liff.isLoggedIn()) {
                 liff.login();
             }
-        } catch (err) { console.warn("Preview mode: liff initialization"); }
+        } catch (err) { console.warn("LIFF initialization skipped"); }
     };
 
     async function submitForm() {
@@ -315,16 +386,10 @@
         btn.disabled = true;
         btn.innerText = "送信中...";
 
-        if (!liff.isLoggedIn() && liff.isInClient()) {
-            liff.login();
-            return;
-        }
-
         const course = document.getElementById('course').value;
         const d1 = `${document.getElementById('date1').value} ${document.getElementById('time1').value}`;
         const d2 = document.getElementById('date2').value ? `${document.getElementById('date2').value} ${document.getElementById('time2').value}` : "なし";
         const d3 = document.getElementById('date3').value ? `${document.getElementById('date3').value} ${document.getElementById('time3').value}` : "なし";
-        
         const stay = document.querySelector('input[name="stay"]:checked').value;
         const rep = document.getElementById('rep_name').value || "本人と同じ";
         const name = document.getElementById('name').value;
@@ -365,8 +430,7 @@ ${notes}
                 document.getElementById('form-container').style.display = 'none';
                 document.getElementById('success-message').style.display = 'block';
             } else {
-                console.log("送信内容:\n", messageText);
-                alert("送信シミュレーション完了（LINEアプリ内であれば実際に送信されます）");
+                showAlert();
                 btn.disabled = false;
                 btn.innerText = "予約内容を送信する";
             }
