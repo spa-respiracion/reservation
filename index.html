@@ -166,6 +166,13 @@
             background: rgba(0,0,0,0.5);
             z-index: 9998;
         }
+        /* 曜日ラベル用のスタイル */
+        .day-label {
+            color: #0284c7;
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -217,28 +224,29 @@
             <h2 class="section-title"><span class="section-number">2</span>ご希望日時</h2>
             
             <div class="time-info-box">
-                <!-- 案内テキストはご要望通り 13:00~ に戻しています -->
                 <strong>受付時間 13:00〜19:00 (最終スタート20:00)</strong><br>
                 <span class="text-sm font-medium">※ 午前中の予約をご希望の場合は、前日19:00までにお問合せください。</span>
             </div>
 
-            <label>第一希望日 <span class="required-mark">*</span></label>
+            <label>第一希望日 <span class="required-mark">*</span><span id="day-label-1" class="day-label"></span></label>
             <div class="flex gap-2 mb-4">
-                <input type="date" id="date1" required style="flex: 1.5;">
+                <input type="date" id="date1" required style="flex: 1.5;" onchange="updateDayLabel(this, 'day-label-1')">
                 <select id="time1" required style="flex: 1;">
                     <option value="" disabled selected>時間</option>
                 </select>
             </div>
-            <label>第二希望日</label>
+            
+            <label>第二希望日 <span id="day-label-2" class="day-label"></span></label>
             <div class="flex gap-2 mb-4">
-                <input type="date" id="date2" style="flex: 1.5;">
+                <input type="date" id="date2" style="flex: 1.5;" onchange="updateDayLabel(this, 'day-label-2')">
                 <select id="time2" style="flex: 1;">
                     <option value="" disabled selected>時間</option>
                 </select>
             </div>
-            <label>第三希望日</label>
+            
+            <label>第三希望日 <span id="day-label-3" class="day-label"></span></label>
             <div class="flex gap-2">
-                <input type="date" id="date3" style="flex: 1.5;">
+                <input type="date" id="date3" style="flex: 1.5;" onchange="updateDayLabel(this, 'day-label-3')">
                 <select id="time3" style="flex: 1;">
                     <option value="" disabled selected>時間</option>
                 </select>
@@ -352,6 +360,25 @@
         });
     }
 
+    // 曜日の日本語を取得するヘルパー関数
+    function getDayOfWeek(dateStr) {
+        if (!dateStr) return "";
+        const days = ['日', '月', '火', '水', '木', '金', '土'];
+        const date = new Date(dateStr);
+        return days[date.getDay()];
+    }
+
+    // 選択時に曜日ラベルを更新する
+    function updateDayLabel(input, labelId) {
+        const label = document.getElementById(labelId);
+        if (input.value) {
+            const day = getDayOfWeek(input.value);
+            label.textContent = `(${day})`;
+        } else {
+            label.textContent = "";
+        }
+    }
+
     function toggleRep(show) {
         document.getElementById('rep-area').style.display = show ? 'block' : 'none';
     }
@@ -386,10 +413,19 @@
         btn.disabled = true;
         btn.innerText = "送信中...";
 
+        // 送信用に日付を整形 (YYYY-MM-DD(曜))
+        const formatDate = (id, timeId) => {
+            const dateVal = document.getElementById(id).value;
+            const timeVal = document.getElementById(timeId).value;
+            if (!dateVal) return "なし";
+            return `${dateVal}(${getDayOfWeek(dateVal)}) ${timeVal}`;
+        };
+
         const course = document.getElementById('course').value;
-        const d1 = `${document.getElementById('date1').value} ${document.getElementById('time1').value}`;
-        const d2 = document.getElementById('date2').value ? `${document.getElementById('date2').value} ${document.getElementById('time2').value}` : "なし";
-        const d3 = document.getElementById('date3').value ? `${document.getElementById('date3').value} ${document.getElementById('time3').value}` : "なし";
+        const d1 = formatDate('date1', 'time1');
+        const d2 = formatDate('date2', 'time2');
+        const d3 = formatDate('date3', 'time3');
+        
         const stay = document.querySelector('input[name="stay"]:checked').value;
         const rep = document.getElementById('rep_name').value || "本人と同じ";
         const name = document.getElementById('name').value;
