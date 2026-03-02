@@ -132,11 +132,9 @@
         .time-info-box {
             background-color: #f0f9ff;
             border-left: 5px solid #38bdf8;
-            padding: 1rem;
+            padding: 1.25rem;
             margin-bottom: 1.5rem;
-            font-size: 0.9rem;
             color: #0369a1;
-            line-height: 1.6;
         }
         #success-message {
             display: none;
@@ -224,8 +222,14 @@
             <h2 class="section-title"><span class="section-number">2</span>ご希望日時</h2>
             
             <div class="time-info-box">
-                <strong>受付時間 13:00〜19:00 (最終スタート20:00)</strong><br>
-                <span class="text-sm font-medium">※ 午前中の予約をご希望の場合は、前日19:00までにお問合せください。</span>
+                <div class="font-bold text-[0.95rem] mb-3 leading-relaxed">
+                    受付時間 13:00〜19:00<br>
+                    （最終スタート 20:00〜）
+                </div>
+                <div class="text-[0.85rem] font-medium leading-relaxed">
+                    ※ 午前中の予約をご希望の場合は、<br>
+                    <span class="font-bold underline decoration-2 underline-offset-2">前日19:00まで</span>にお問い合わせください。
+                </div>
             </div>
 
             <label>第一希望日 <span class="required-mark">*</span><span id="day-label-1" class="day-label"></span></label>
@@ -438,7 +442,7 @@
 
         localStorage.setItem('salon_user_name', name);
 
-        // ★ここを修正しました（末尾の重複していた注釈文を削除し、スッキリさせました）
+        // ★末尾の注釈を削除し、スッキリさせました
         const detailMessage = `■お名前：${name} 様
 ■電話番号：${phone}
 ■来店回数：${visit}
@@ -460,10 +464,10 @@ ${notes}`;
 
         try {
             if (liff.isInClient()) {
-                // ★ここを修正しました（2通に分けて送信する処理）
+                // ★タイトルと詳細の「2通」を連続で送る処理
                 await liff.sendMessages([
-                    { type: 'text', text: '【ご予約リクエスト】' }, // 1通目：キーワードのみ
-                    { type: 'text', text: detailMessage }        // 2通目：詳細内容
+                    { type: 'text', text: '【ご予約リクエスト】' }, 
+                    { type: 'text', text: detailMessage }        
                 ]);
                 document.getElementById('form-container').style.display = 'none';
                 document.getElementById('success-message').style.display = 'block';
