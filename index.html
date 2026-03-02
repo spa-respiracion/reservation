@@ -438,8 +438,8 @@
 
         localStorage.setItem('salon_user_name', name);
 
-        const messageText = `【ご予約リクエスト】
-■お名前：${name} 様
+        // ★ここを修正しました（詳細メッセージ本体）
+        const detailMessage = `■お名前：${name} 様
 ■電話番号：${phone}
 ■来店回数：${visit}
 ■人数：${pax}
@@ -462,7 +462,11 @@ ${notes}
 
         try {
             if (liff.isInClient()) {
-                await liff.sendMessages([{ type: 'text', text: messageText }]);
+                // ★ここを修正しました（2通に分けて送信する処理）
+                await liff.sendMessages([
+                    { type: 'text', text: '【ご予約リクエスト】' }, // 1通目：キーワードのみ
+                    { type: 'text', text: detailMessage }        // 2通目：詳細内容
+                ]);
                 document.getElementById('form-container').style.display = 'none';
                 document.getElementById('success-message').style.display = 'block';
             } else {
