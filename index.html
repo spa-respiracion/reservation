@@ -238,8 +238,8 @@
                         <option value="Respiraciónシグネチャー 180min (¥52,800)">Respiraciónシグネチャー 180min (¥52,800)</option>
                     </optgroup>
                     <optgroup label="＜Body Menu＞">
-                        <option value="ブレインデトックス 　 80min (¥20,900)">ブレインデトックス 　  80min (¥20,900)</option>
-                        <option value="ブレインデトックス 　 50min　(¥16,500)">ブレインデトックス 　 50min　(¥16,500)</option>
+                        <option value="ブレインデトックス   80min (¥20,900)">ブレインデトックス    80min (¥20,900)</option>
+                        <option value="ブレインデトックス   50min (¥16,500)">ブレインデトックス   50min (¥16,500)</option>
                         <option value="パーソナライズボディ 120min (¥29,700)">パーソナライズボディ 120min (¥29,700)</option>
                         <option value="パーソナライズボディ   90min (¥24,200)">パーソナライズボディ   90min (¥24,200)</option>
                         <option value="パーツトリートメント   30min (¥11,000)">パーツトリートメント   30min (¥11,000)</option>
@@ -416,8 +416,9 @@
             
             <label>第二希望日 <span class="required-mark">*</span><span id="day-label-2" class="day-label"></span></label>
             <div class="flex gap-2 mb-4">
-                <input type="date" id="date2" style="flex: 1.5;" onchange="updateDayLabel(this, 'day-label-2')">
-                <select id="time2" style="flex: 1;">
+                <!-- 必須入力に変更しました -->
+                <input type="date" id="date2" required style="flex: 1.5;" onchange="updateDayLabel(this, 'day-label-2')">
+                <select id="time2" required style="flex: 1;">
                     <option value="" disabled selected>時間</option>
                 </select>
             </div>
@@ -451,8 +452,9 @@
             <label>お名前 (フルネーム) 複数名の場合は代表者様名 <span class="required-mark">*</span></label>
             <input type="text" id="name" placeholder="例：山田 花子" required>
 
-            <label>お電話番号 <span class="required-mark">*</span>
-            <input type="tel" id="phone" placeholder="例：09012345678">
+            <!-- labelの閉じ忘れ修正 ＆ 必須入力に変更しました -->
+            <label>お電話番号 <span class="required-mark">*</span></label>
+            <input type="tel" id="phone" placeholder="例：09012345678" required>
         </div>
 
         <!-- 4. 回数・スタッフ -->
