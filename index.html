@@ -433,13 +433,13 @@
 
         <!-- 3. お客様情報 -->
         <div class="form-section">
-            <h2 class="section-title"><span class="section-number">3</span>代表者様 情報</h2>
+            <h2 class="section-title"><span class="section-number">3</span>お客様情報 </h2>
             
             <label>宿泊状況 <span class="required-mark">*</span></label>
             <div class="space-y-2 mb-4">
                 <label class="radio-label"><input type="radio" name="stay" value="宿泊（GAHAMA）" required onclick="toggleRep(true)"> 宿泊（GAHAMA）</label>
                 <label class="radio-label"><input type="radio" name="stay" value="宿泊（SEIKAI）" onclick="toggleRep(true)"> 宿泊（SEIKAI）</label>
-                <label class="radio-label"><input type="radio" name="stay" value="外来（日帰りでのご利用）" onclick="toggleRep(false)"> 外来（日帰りでのご利用）</label>
+                <label class="radio-label"><input type="radio" name="stay" value="日帰りでのご利用" onclick="toggleRep(false)"> 外来（日帰りでのご利用）</label>
             </div>
 
             <div id="rep-area" style="display:none;">
@@ -448,10 +448,10 @@
                 <p class="hint-text">※宿泊のお客様は、予約代表者様名をお知らせください。</p>
             </div>
 
-            <label>代表者様 お名前 (フルネーム) <span class="required-mark">*</span></label>
+            <label>お名前 (フルネーム) 複数名の場合は代表者様名 <span class="required-mark">*</span></label>
             <input type="text" id="name" placeholder="例：山田 花子" required>
 
-            <label>代表者様 お電話番号 (任意)</label>
+            <label>お電話番号 <span class="required-mark">*</span>/label>
             <input type="tel" id="phone" placeholder="例：09012345678">
         </div>
 
@@ -474,7 +474,7 @@
         <!-- 5. メッセージ -->
         <div class="form-section">
             <h2 class="section-title"><span class="section-number">5</span>メッセージ・ご要望</h2>
-            <textarea id="notes" rows="4" placeholder="同伴者様のお名前、記念日利用、指名スタッフ名などをご記入ください"></textarea>
+            <textarea id="notes" rows="4" placeholder="例）記念日利用、指名スタッフ名などをご記入ください"></textarea>
         </div>
 
         <!-- キャンセルポリシー -->
