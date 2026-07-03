@@ -136,6 +136,22 @@
             margin-bottom: 1.5rem;
             color: #0369a1;
         }
+        /* 人数分の入力枠用スタイル */
+        .guest-box {
+            background-color: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .guest-title {
+            color: #0284c7;
+            font-weight: 800;
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
         #success-message {
             display: none;
             text-align: center;
@@ -164,7 +180,6 @@
             background: rgba(0,0,0,0.5);
             z-index: 9998;
         }
-        /* 曜日ラベル用のスタイル */
         .day-label {
             color: #0284c7;
             font-size: 0.85rem;
@@ -189,32 +204,191 @@
     </div>
 
     <form id="reservation-form">
-        <!-- 1. コース -->
+        
+        <!-- 1. 人数とコース選択 -->
         <div class="form-section">
-            <h2 class="section-title"><span class="section-number">1</span>ご希望のコース</h2>
-            <label>コースを選択してください <span class="required-mark">*</span></label>
-            <select id="course" required>
-                <option value="" disabled selected>選択してください</option>
-                <optgroup label="＜Season Menu＞">
-                    <option value="脳の春支度プラン">脳の春支度プラン</option>
-                </optgroup>
-                <optgroup label="＜Relux Menu＞">
-                    <option value="ブレインデトックス 45min">ブレインデトックス 45min</option>
-                    <option value="ブレインデトックス 75min">ブレインデトックス 75min</option>
-                    <option value="リジュブネイトセラピー 120min">リジュブネイトセラピー 120min</option>
-                    <option value="リジュブネイトセラピー 80min">リジュブネイトセラピー 80min</option>
-                    <option value="リジュブネイトセラピー 50min">リジュブネイトセラピー 50min</option>
-                </optgroup>
-                <optgroup label="＜SPAパッケージ＞">
-                    <option value="Bliss 150min">Bliss 150min</option>
-                    <option value="Bliss 120min">Bliss 120min</option>
-                    <option value="Relax 80min">Relax 80min</option>
-                    <option value="Purify 50min">Purify 50min</option>
-                </optgroup>
-            </select>
-            <p class="hint-text">
-                ※ 具体的なコースが決まっておらず、ご希望のコース時間（80分や120分など）のみお決まりの場合は、メッセージ欄にその旨ご記入をお願いいたします。
+            <h2 class="section-title"><span class="section-number">1</span>ご利用人数とコース</h2>
+            
+            <!-- 税込表示の注意書きを追加 -->
+            <p class="text-[0.95rem] font-bold text-sky-600 mb-4 bg-sky-50 p-2 rounded-md border border-sky-100">
+                ※価格は全て税込表示となっております。
             </p>
+
+            <label>ご利用人数 <span class="required-mark">*</span></label>
+            <select id="pax" required onchange="updateGuestFields()">
+                <option value="1">1名</option>
+                <option value="2">2名</option>
+                <option value="3">3名</option>
+                <option value="4">4名</option>
+            </select>
+            
+            <p class="hint-text mb-4">
+                ※ 具体的なコースが決まっておらず、ご希望のコース時間のみお決まりの場合は、メッセージ欄にご記入をお願いいたします。
+            </p>
+
+            <!-- 1人目 -->
+            <div id="guest-1" class="guest-box">
+                <div class="guest-title">【1人目】のコース詳細</div>
+                <label>コースを選択してください <span class="required-mark">*</span></label>
+                <select id="course_1" required>
+                    <option value="" disabled selected>選択してください</option>
+                    <optgroup label="＜Special Menu (Facial&Body)＞">
+                        <option value="Respiraciónシグネチャー 120min (¥36,300)">Respiraciónシグネチャー 120min (¥36,300)</option>
+                        <option value="Respiraciónシグネチャー 150min (¥44,000)">Respiraciónシグネチャー 150min (¥44,000)</option>
+                        <option value="Respiraciónシグネチャー 180min (¥52,800)">Respiraciónシグネチャー 180min (¥52,800)</option>
+                    </optgroup>
+                    <optgroup label="＜Body Menu＞">
+                        <option value="ブレインデトックス 80min (¥20,900)">ブレインデトックス 80min (¥20,900)</option>
+                        <option value="ブレインデトックス 50min (¥16,500)">ブレインデトックス 50min (¥16,500)</option>
+                        <option value="パーソナライズボディ 120min (¥29,700)">パーソナライズボディ 120min (¥29,700)</option>
+                        <option value="パーソナライズボディ 90min (¥24,200)">パーソナライズボディ 90min (¥24,200)</option>
+                        <option value="パーツトリートメント 30min (¥11,000)">パーツトリートメント 30min (¥11,000)</option>
+                        <option value="マタニティ・エスケープ 60min (¥18,700)">マタニティ・エスケープ 60min (¥18,700)</option>
+                        <option value="マタニティ・エスケープ 30min (¥11,000)">マタニティ・エスケープ 30min (¥11,000)</option>
+                    </optgroup>
+                    <optgroup label="＜Facial Menu＞">
+                        <option value="セルバイタルフェイシャル 75min (¥22,000)">セルバイタルフェイシャル 75min (¥22,000)</option>
+                        <option value="パーソナライズフェイシャル 75min (¥22,000)">パーソナライズフェイシャル 75min (¥22,000)</option>
+                        <option value="パーソナライズフェイシャル 45min (¥16,500)">パーソナライズフェイシャル 45min (¥16,500)</option>
+                     </optgroup>
+                    <optgroup label="＜SPAパッケージ＞">
+                        <option value="Bliss 150min (¥52,800)">Bliss 150min (¥52,800)</option>
+                        <option value="Bliss 120min (¥41,800)">Bliss 120min (¥41,800)</option>
+                        <option value="Relax 80min (¥27,500)">Relax 80min (¥27,500)</option>
+                        <option value="Purify 50min (¥16,500)">Purify 50min (¥16,500)</option>  
+                    </optgroup>
+                </select>
+
+                <label>お着替え・ご準備のタイプ <span class="required-mark">*</span></label>
+                <div class="space-y-2">
+                    <label class="radio-label"><input type="radio" name="prep_1" value="女性用" required> 女性用</label>
+                    <label class="radio-label"><input type="radio" name="prep_1" value="男性用"> 男性用</label>
+                    <label class="radio-label"><input type="radio" name="prep_1" value="その他/回答しない"> その他 / 回答しない</label>
+                </div>
+            </div>
+
+            <!-- 2人目 (初期非表示) -->
+            <div id="guest-2" class="guest-box" style="display: none;">
+                <div class="guest-title">【2人目】のコース詳細</div>
+                <label>コースを選択してください <span class="required-mark">*</span></label>
+                <select id="course_2">
+                    <option value="" disabled selected>選択してください</option>
+                    <optgroup label="＜Special Menu (Facial&Body)＞">
+                        <option value="Respiraciónシグネチャー 120min (¥36,300)">Respiraciónシグネチャー 120min (¥36,300)</option>
+                        <option value="Respiraciónシグネチャー 150min (¥44,000)">Respiraciónシグネチャー 150min (¥44,000)</option>
+                        <option value="Respiraciónシグネチャー 180min (¥52,800)">Respiraciónシグネチャー 180min (¥52,800)</option>
+                    </optgroup>
+                    <optgroup label="＜Body Menu＞">
+                        <option value="ブレインデトックス 80min (¥20,900)">ブレインデトックス 80min (¥20,900)</option>
+                        <option value="ブレインデトックス 50min (¥16,500)">ブレインデトックス 50min (¥16,500)</option>
+                        <option value="パーソナライズボディ 120min (¥29,700)">パーソナライズボディ 120min (¥29,700)</option>
+                        <option value="パーソナライズボディ 90min (¥24,200)">パーソナライズボディ 90min (¥24,200)</option>
+                        <option value="パーツトリートメント 30min (¥11,000)">パーツトリートメント 30min (¥11,000)</option>
+                        <option value="マタニティ・エスケープ 60min (¥18,700)">マタニティ・エスケープ 60min (¥18,700)</option>
+                        <option value="マタニティ・エスケープ 30min (¥11,000)">マタニティ・エスケープ 30min (¥11,000)</option>
+                    </optgroup>
+                    <optgroup label="＜Facial Menu＞">
+                        <option value="セルバイタルフェイシャル 75min (¥22,000)">セルバイタルフェイシャル 75min (¥22,000)</option>
+                        <option value="パーソナライズフェイシャル 75min (¥22,000)">パーソナライズフェイシャル 75min (¥22,000)</option>
+                        <option value="パーソナライズフェイシャル 45min (¥16,500)">パーソナライズフェイシャル 45min (¥16,500)</option>
+                     </optgroup>
+                    <optgroup label="＜SPAパッケージ＞">
+                        <option value="Bliss 150min (¥52,800)">Bliss 150min (¥52,800)</option>
+                        <option value="Bliss 120min (¥41,800)">Bliss 120min (¥41,800)</option>
+                        <option value="Relax 80min (¥27,500)">Relax 80min (¥27,500)</option>
+                        <option value="Purify 50min (¥16,500)">Purify 50min (¥16,500)</option>  
+                    </optgroup>
+                </select>
+
+                <label>お着替え・ご準備のタイプ <span class="required-mark">*</span></label>
+                <div class="space-y-2">
+                    <label class="radio-label"><input type="radio" name="prep_2" value="女性用"> 女性用</label>
+                    <label class="radio-label"><input type="radio" name="prep_2" value="男性用"> 男性用</label>
+                    <label class="radio-label"><input type="radio" name="prep_2" value="その他/回答しない"> その他 / 回答しない</label>
+                </div>
+            </div>
+
+            <!-- 3人目 (初期非表示) -->
+            <div id="guest-3" class="guest-box" style="display: none;">
+                <div class="guest-title">【3人目】のコース詳細</div>
+                <label>コースを選択してください <span class="required-mark">*</span></label>
+                <select id="course_3">
+                    <option value="" disabled selected>選択してください</option>
+                    <optgroup label="＜Special Menu (Facial&Body)＞">
+                        <option value="Respiraciónシグネチャー 120min (¥36,300)">Respiraciónシグネチャー 120min (¥36,300)</option>
+                        <option value="Respiraciónシグネチャー 150min (¥44,000)">Respiraciónシグネチャー 150min (¥44,000)</option>
+                        <option value="Respiraciónシグネチャー 180min (¥52,800)">Respiraciónシグネチャー 180min (¥52,800)</option>
+                    </optgroup>
+                    <optgroup label="＜Body Menu＞">
+                        <option value="ブレインデトックス 80min (¥20,900)">ブレインデトックス 80min (¥20,900)</option>
+                        <option value="ブレインデトックス 50min (¥16,500)">ブレインデトックス 50min (¥16,500)</option>
+                        <option value="パーソナライズボディ 120min (¥29,700)">パーソナライズボディ 120min (¥29,700)</option>
+                        <option value="パーソナライズボディ 90min (¥24,200)">パーソナライズボディ 90min (¥24,200)</option>
+                        <option value="パーツトリートメント 30min (¥11,000)">パーツトリートメント 30min (¥11,000)</option>
+                        <option value="マタニティ・エスケープ 60min (¥18,700)">マタニティ・エスケープ 60min (¥18,700)</option>
+                        <option value="マタニティ・エスケープ 30min (¥11,000)">マタニティ・エスケープ 30min (¥11,000)</option>
+                    </optgroup>
+                    <optgroup label="＜Facial Menu＞">
+                        <option value="セルバイタルフェイシャル 75min (¥22,000)">セルバイタルフェイシャル 75min (¥22,000)</option>
+                        <option value="パーソナライズフェイシャル 75min (¥22,000)">パーソナライズフェイシャル 75min (¥22,000)</option>
+                        <option value="パーソナライズフェイシャル 45min (¥16,500)">パーソナライズフェイシャル 45min (¥16,500)</option>
+                     </optgroup>
+                    <optgroup label="＜SPAパッケージ＞">
+                        <option value="Bliss 150min (¥52,800)">Bliss 150min (¥52,800)</option>
+                        <option value="Bliss 120min (¥41,800)">Bliss 120min (¥41,800)</option>
+                        <option value="Relax 80min (¥27,500)">Relax 80min (¥27,500)</option>
+                        <option value="Purify 50min (¥16,500)">Purify 50min (¥16,500)</option>  
+                    </optgroup>
+                </select>
+
+                <label>お着替え・ご準備のタイプ <span class="required-mark">*</span></label>
+                <div class="space-y-2">
+                    <label class="radio-label"><input type="radio" name="prep_3" value="女性用"> 女性用</label>
+                    <label class="radio-label"><input type="radio" name="prep_3" value="男性用"> 男性用</label>
+                    <label class="radio-label"><input type="radio" name="prep_3" value="その他/回答しない"> その他 / 回答しない</label>
+                </div>
+            </div>
+
+            <!-- 4人目 (初期非表示) -->
+            <div id="guest-4" class="guest-box" style="display: none;">
+                <div class="guest-title">【4人目】のコース詳細</div>
+                <label>コースを選択してください <span class="required-mark">*</span></label>
+                <select id="course_4">
+                    <option value="" disabled selected>選択してください</option>
+                    <optgroup label="＜Special Menu (Facial&Body)＞">
+                        <option value="Respiraciónシグネチャー 120min (¥36,300)">Respiraciónシグネチャー 120min (¥36,300)</option>
+                        <option value="Respiraciónシグネチャー 150min (¥44,000)">Respiraciónシグネチャー 150min (¥44,000)</option>
+                        <option value="Respiraciónシグネチャー 180min (¥52,800)">Respiraciónシグネチャー 180min (¥52,800)</option>
+                    </optgroup>
+                    <optgroup label="＜Body Menu＞">
+                        <option value="ブレインデトックス 80min (¥20,900)">ブレインデトックス 80min (¥20,900)</option>
+                        <option value="ブレインデトックス 50min (¥16,500)">ブレインデトックス 50min (¥16,500)</option>
+                        <option value="パーソナライズボディ 120min (¥29,700)">パーソナライズボディ 120min (¥29,700)</option>
+                        <option value="パーソナライズボディ 90min (¥24,200)">パーソナライズボディ 90min (¥24,200)</option>
+                        <option value="パーツトリートメント 30min (¥11,000)">パーツトリートメント 30min (¥11,000)</option>
+                        <option value="マタニティ・エスケープ 60min (¥18,700)">マタニティ・エスケープ 60min (¥18,700)</option>
+                        <option value="マタニティ・エスケープ 30min (¥11,000)">マタニティ・エスケープ 30min (¥11,000)</option>
+                    </optgroup>
+                    <optgroup label="＜Facial Menu＞">
+                        <option value="セルバイタルフェイシャル 75min (¥22,000)">セルバイタルフェイシャル 75min (¥22,000)</option>
+                        <option value="パーソナライズフェイシャル 75min (¥22,000)">パーソナライズフェイシャル 75min (¥22,000)</option>
+                        <option value="パーソナライズフェイシャル 45min (¥16,500)">パーソナライズフェイシャル 45min (¥16,500)</option>
+                     </optgroup>
+                    <optgroup label="＜SPAパッケージ＞">
+                        <option value="Bliss 150min (¥52,800)">Bliss 150min (¥52,800)</option>
+                        <option value="Bliss 120min (¥41,800)">Bliss 120min (¥41,800)</option>
+                        <option value="Relax 80min (¥27,500)">Relax 80min (¥27,500)</option>
+                        <option value="Purify 50min (¥16,500)">Purify 50min (¥16,500)</option>  
+                    </optgroup>
+                </select>
+
+                <label>お着替え・ご準備のタイプ <span class="required-mark">*</span></label>
+                <div class="space-y-2">
+                    <label class="radio-label"><input type="radio" name="prep_4" value="女性用"> 女性用</label>
+                    <label class="radio-label"><input type="radio" name="prep_4" value="男性用"> 男性用</label>
+                    <label class="radio-label"><input type="radio" name="prep_4" value="その他/回答しない"> その他 / 回答しない</label>
+                </div>
+            </div>
         </div>
 
         <!-- 2. 日時 -->
@@ -224,7 +398,7 @@
             <div class="time-info-box">
                 <div class="font-bold text-[0.95rem] mb-3 leading-relaxed">
                     受付時間 13:00〜19:00<br>
-                    （最終スタート 20:00〜）
+                    （最終スタート 20:00）
                 </div>
                 <div class="text-[0.85rem] font-medium leading-relaxed">
                     ※ 午前中の予約をご希望の場合は、<br>
@@ -259,7 +433,7 @@
 
         <!-- 3. お客様情報 -->
         <div class="form-section">
-            <h2 class="section-title"><span class="section-number">3</span>お客様情報</h2>
+            <h2 class="section-title"><span class="section-number">3</span>代表者様 情報</h2>
             
             <label>宿泊状況 <span class="required-mark">*</span></label>
             <div class="space-y-2 mb-4">
@@ -274,26 +448,11 @@
                 <p class="hint-text">※宿泊のお客様は、予約代表者様名をお知らせください。</p>
             </div>
 
-            <label>お名前 (フルネーム) <span class="required-mark">*</span></label>
+            <label>代表者様 お名前 (フルネーム) <span class="required-mark">*</span></label>
             <input type="text" id="name" placeholder="例：山田 花子" required>
 
-            <label>ご利用人数 <span class="required-mark">*</span></label>
-            <select id="pax" required>
-                <option value="1名">1名</option>
-                <option value="2名">2名</option>
-                <option value="3名">3名</option>
-                <option value="4名">4名</option>
-            </select>
-
-            <label>お電話番号 (任意)</label>
+            <label>代表者様 お電話番号 (任意)</label>
             <input type="tel" id="phone" placeholder="例：09012345678">
-
-            <label>お着替え・ご準備のタイプ <span class="required-mark">*</span></label>
-            <div class="space-y-2">
-                <label class="radio-label"><input type="radio" name="prep" value="女性用" required> 女性用</label>
-                <label class="radio-label"><input type="radio" name="prep" value="男性用"> 男性用</label>
-                <label class="radio-label"><input type="radio" name="prep" value="その他/回答しない"> その他 / 回答しない</label>
-            </div>
         </div>
 
         <!-- 4. 回数・スタッフ -->
@@ -315,7 +474,7 @@
         <!-- 5. メッセージ -->
         <div class="form-section">
             <h2 class="section-title"><span class="section-number">5</span>メッセージ・ご要望</h2>
-            <textarea id="notes" rows="4" placeholder="記念日利用や指名スタッフ名などをご記入ください"></textarea>
+            <textarea id="notes" rows="4" placeholder="同伴者様のお名前、記念日利用、指名スタッフ名などをご記入ください"></textarea>
         </div>
 
         <!-- キャンセルポリシー -->
@@ -343,10 +502,10 @@
 <script>
     const MY_LIFF_ID = "2009275620-ZCOPfwpn";
 
-    // 15分刻みの時間選択肢を生成する関数（10:00から開始）
+    // 15分刻みの時間選択肢を生成する関数
     function generateTimeOptions() {
         const selects = ['time1', 'time2', 'time3'];
-        const startHour = 10; // 選択肢は10:00から開始
+        const startHour = 10;
         const endHour = 20;
 
         selects.forEach(id => {
@@ -364,7 +523,7 @@
         });
     }
 
-    // 曜日の日本語を取得するヘルパー関数
+    // 曜日の日本語を取得する
     function getDayOfWeek(dateStr) {
         if (!dateStr) return "";
         const days = ['日', '月', '火', '水', '木', '金', '土'];
@@ -372,7 +531,6 @@
         return days[date.getDay()];
     }
 
-    // 選択時に曜日ラベルを更新する
     function updateDayLabel(input, labelId) {
         const label = document.getElementById(labelId);
         if (input.value) {
@@ -380,6 +538,29 @@
             label.textContent = `(${day})`;
         } else {
             label.textContent = "";
+        }
+    }
+
+    // 人数に応じて入力欄の表示を切り替え、必須属性を操作する関数
+    function updateGuestFields() {
+        const count = parseInt(document.getElementById('pax').value, 10);
+        
+        for (let i = 1; i <= 4; i++) {
+            const guestBox = document.getElementById(`guest-${i}`);
+            const courseSelect = document.getElementById(`course_${i}`);
+            const preps = document.getElementsByName(`prep_${i}`);
+
+            if (i <= count) {
+                // 表示して必須にする
+                guestBox.style.display = 'block';
+                courseSelect.required = true;
+                preps[0].required = true; // ラジオボタンの1つ目に必須属性をつける
+            } else {
+                // 隠して必須を外す
+                guestBox.style.display = 'none';
+                courseSelect.required = false;
+                preps.forEach(radio => radio.required = false);
+            }
         }
     }
 
@@ -398,6 +579,9 @@
 
     window.onload = async function() {
         generateTimeOptions();
+        // 初期状態の表示をセット
+        updateGuestFields();
+
         const savedName = localStorage.getItem('salon_user_name');
         if (savedName) document.getElementById('name').value = savedName;
 
@@ -417,7 +601,6 @@
         btn.disabled = true;
         btn.innerText = "送信中...";
 
-        // 送信用に日付を整形 (YYYY-MM-DD(曜))
         const formatDate = (id, timeId) => {
             const dateVal = document.getElementById(id).value;
             const timeVal = document.getElementById(timeId).value;
@@ -425,7 +608,6 @@
             return `${dateVal}(${getDayOfWeek(dateVal)}) ${timeVal}`;
         };
 
-        const course = document.getElementById('course').value;
         const d1 = formatDate('date1', 'time1');
         const d2 = formatDate('date2', 'time2');
         const d3 = formatDate('date3', 'time3');
@@ -433,28 +615,34 @@
         const stay = document.querySelector('input[name="stay"]:checked').value;
         const rep = document.getElementById('rep_name').value || "本人と同じ";
         const name = document.getElementById('name').value;
-        const pax = document.getElementById('pax').value;
+        const pax = parseInt(document.getElementById('pax').value, 10);
         const phone = document.getElementById('phone').value || "未入力";
-        const prep = document.querySelector('input[name="prep"]:checked').value;
         const visit = document.querySelector('input[name="visit"]:checked').value;
         const staff = document.querySelector('input[name="staff"]:checked').value;
         const notes = document.getElementById('notes').value || "特になし";
 
+        // 人数分のコースと着替えをまとめてテキスト化する
+        let guestDetailsText = "";
+        for (let i = 1; i <= pax; i++) {
+            const courseVal = document.getElementById(`course_${i}`).value;
+            const prepChecked = document.querySelector(`input[name="prep_${i}"]:checked`);
+            const prepVal = prepChecked ? prepChecked.value : "未選択";
+            
+            guestDetailsText += `\n【${i}人目】\n・コース：${courseVal}\n・お着替え：${prepVal}\n`;
+        }
+
         localStorage.setItem('salon_user_name', name);
 
-        // ★末尾の注釈を削除し、スッキリさせました
-        const detailMessage = `■お名前：${name} 様
+        const detailMessage = `■代表者様お名前：${name} 様
 ■電話番号：${phone}
-■来店回数：${visit}
-■人数：${pax}
-■着替え：${prep}
+■宿泊状況：${stay}
+■宿泊代表者名：${rep}
+
+■ご来店回数：${visit}
+■ご利用人数：${pax}名
 ■スタッフ希望：${staff}
 
-■宿泊状況：${stay}
-■宿泊予約代表者名：${rep}
-
-■コース：${course}
-
+■コース・ご準備詳細：${guestDetailsText}
 ■第一希望：${d1}
 ■第二希望：${d2}
 ■第三希望：${d3}
@@ -464,7 +652,6 @@ ${notes}`;
 
         try {
             if (liff.isInClient()) {
-                // ★タイトルと詳細の「2通」を連続で送る処理
                 await liff.sendMessages([
                     { type: 'text', text: '【ご予約リクエスト】' }, 
                     { type: 'text', text: detailMessage }        
