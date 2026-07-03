@@ -414,7 +414,7 @@
                 </select>
             </div>
             
-            <label>第二希望日 <span id="day-label-2" class="day-label"></span></label>
+            <label>第二希望日 <span class="required-mark">*</span><span id="day-label-2" class="day-label"></span></label>
             <div class="flex gap-2 mb-4">
                 <input type="date" id="date2" style="flex: 1.5;" onchange="updateDayLabel(this, 'day-label-2')">
                 <select id="time2" style="flex: 1;">
@@ -451,7 +451,7 @@
             <label>お名前 (フルネーム) 複数名の場合は代表者様名 <span class="required-mark">*</span></label>
             <input type="text" id="name" placeholder="例：山田 花子" required>
 
-            <label>お電話番号 <span class="required-mark">*</span>/label>
+            <label>お電話番号 <span class="required-mark">*</span>
             <input type="tel" id="phone" placeholder="例：09012345678">
         </div>
 
@@ -474,7 +474,7 @@
         <!-- 5. メッセージ -->
         <div class="form-section">
             <h2 class="section-title"><span class="section-number">5</span>メッセージ・ご要望</h2>
-            <textarea id="notes" rows="4" placeholder="例）記念日利用、指名スタッフ名などをご記入ください"></textarea>
+            <textarea id="notes" rows="4" placeholder="例）記念日利用、指名スタッフ名などご自由にご記入ください"></textarea>
         </div>
 
         <!-- キャンセルポリシー -->
